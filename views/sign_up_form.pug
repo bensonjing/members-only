@@ -1,0 +1,15 @@
+extends layout
+
+block content 
+  h1= title 
+
+  form(method='POST' action='') 
+    input#username(type='text' name='username' placeholder='Enter username' value=(undefined===user ? '' : user.username) required='true')
+    input#password(type='password' name='password' placeholder='Enter password' required='true')
+    input#config_password(type='password' name='confirm_password' placeholder='Confirm password' required='true')
+    button(type='submit') Sign Up
+
+  if errors 
+    ul 
+      each error in errors 
+        li= error.msg
