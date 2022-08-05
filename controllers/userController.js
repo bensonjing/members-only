@@ -1,4 +1,5 @@
 import { body, validationResult } from "express-validator";
+import bcrypt from "bcryptjs";
 
 import User from "../models/user";
 
@@ -11,7 +12,7 @@ export const user_create_post = [
     .trim()
     .isLength({ min: 8 })
     .escape()
-    .withMessage("Password must be longer than 8 characters"),
+    .withMessage("Password must be shorter than 8 characters"),
   body("confirm_password").custom((value, { req }) => {
     if (value != req.body.password) {
       throw new Error("Password confirmation does not match password");
@@ -28,15 +29,20 @@ export const user_create_post = [
         user: req.body,
       });
     } else {
-      const user = new User({
-        username: req.body.username,
-        password: req.body.password,
-      });
-      user.save((err) => {
+      bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
         if (err) {
           return next(err);
         }
-        res.send("SUCCEED");
+        const user = new User({
+          username: req.body.username,
+          password: hashedPassword,
+        });
+        user.save((err) => {
+          if (err) {
+            return next(err);
+          }
+          res.send("SUCCEED");
+        });
       });
     }
   },
