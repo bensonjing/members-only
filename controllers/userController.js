@@ -1,5 +1,6 @@
 import { body, validationResult } from "express-validator";
 import bcrypt from "bcryptjs";
+import "dotenv/config";
 
 import User from "../models/user";
 
@@ -44,6 +45,31 @@ export const user_create_post = [
           res.send("SUCCEED");
         });
       });
+    }
+  },
+];
+
+export function user_member_get(req, res) {
+  res.render("member_form", { title: "Become Member!" });
+}
+
+export const user_member_post = [
+  body("member_password").custom((value) => {
+    if (value != process.env.MEMBER_PASSWORD) {
+      throw new Error("Password is incorrect");
+    }
+    return true;
+  }),
+  (req, res, next) => {
+    const errors = validationResult(req);
+
+    if (!errors.isEmpty()) {
+      res.render("member_form", {
+        title: "Become Member!",
+        errors: errors.array(),
+      });
+    } else {
+      res.send("SUCCEED");
     }
   },
 ];

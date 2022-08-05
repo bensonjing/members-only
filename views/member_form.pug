@@ -1,0 +1,8 @@
+extends layout 
+
+block content 
+  h1= title 
+
+  form(method='POST' action='') 
+    input#member_password(type='text' name='member_password' placeholder='Enter member password' required='true')
+    button(type='submit') Submit
