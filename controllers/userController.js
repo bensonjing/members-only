@@ -5,7 +5,7 @@ import "dotenv/config";
 import User from "../models/user";
 
 export function user_create_get(req, res) {
-  res.render("sign_up_form", { title: "Sign Up" });
+  res.render("sign_form", { title: "Sign Up", signUp: true });
 }
 
 export const user_create_post = [
@@ -24,10 +24,11 @@ export const user_create_post = [
     const errors = validationResult(req);
 
     if (!errors.isEmpty()) {
-      res.render("sign_up_form", {
+      res.render("sign_form", {
         title: "Sign Up",
         errors: errors.array(),
         user: req.body,
+        signUp: true,
       });
     } else {
       bcrypt.hash(req.body.password, 10, (err, hashedPassword) => {
@@ -73,3 +74,7 @@ export const user_member_post = [
     }
   },
 ];
+
+export function user_login_get(req, res) {
+  res.render("sign_form", { title: "Login" });
+}

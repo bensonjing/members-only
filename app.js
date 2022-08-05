@@ -9,6 +9,7 @@ import "dotenv/config";
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
 import signUpRouter from "./routes/signUp";
+import loginRouter from "./routes/login";
 import memberRouter from "./routes/member";
 
 var app = express();
@@ -32,6 +33,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use("/", indexRouter);
 app.use("/users", usersRouter);
 app.use("/sign-up", signUpRouter);
+app.use("/login", loginRouter);
 app.use("/become-member", memberRouter);
 
 // catch 404 and forward to error handler
