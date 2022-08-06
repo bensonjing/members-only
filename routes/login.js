@@ -1,9 +1,8 @@
 import express from "express";
 const router = express.Router();
-import session from "express-session";
-import bcrypt from "bcryptjs";
-import passport, { use } from "passport";
+import passport from "passport";
 import LocalStrategy from "passport-local";
+import bcrypt from "bcryptjs";
 
 import * as userController from "../controllers/userController";
 import User from "../models/user";
@@ -37,11 +36,6 @@ passport.deserializeUser((id, done) => {
     done(err, user);
   });
 });
-
-router.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
-router.use(passport.initialize());
-router.use(passport.session());
-router.use(express.urlencoded({ extended: false }));
 
 router.get("/", userController.user_login_get);
 

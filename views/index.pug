@@ -2,4 +2,8 @@ extends layout
 
 block content
   h1= title
-  p Welcome to #{title}
+  a(href='/become-member') Become member #[br]
+  a(href='/login') Login
+  if user 
+    p= user.username
+    p= user.membership

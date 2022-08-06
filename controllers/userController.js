@@ -70,7 +70,17 @@ export const user_member_post = [
         errors: errors.array(),
       });
     } else {
-      res.send("SUCCEED");
+      console.log(req.user);
+      User.updateOne(
+        { _id: req.user._id },
+        { $set: { membership: true } },
+        (err) => {
+          if (err) {
+            next(err);
+          }
+          res.redirect("/");
+        }
+      );
     }
   },
 ];

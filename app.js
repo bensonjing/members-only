@@ -5,6 +5,8 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 import mongoose from "mongoose";
 import "dotenv/config";
+import passport from "passport";
+import session from "express-session";
 
 var indexRouter = require("./routes/index");
 var usersRouter = require("./routes/users");
@@ -19,6 +21,11 @@ const mongoDB = process.env.MONGODB_URI;
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true });
 const db = mongoose.connection;
 db.on("error", console.error.bind(console, "mongoDB connection error: "));
+
+app.use(session({ secret: "cats", resave: false, saveUninitialized: true }));
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(express.urlencoded({ extended: false }));
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
