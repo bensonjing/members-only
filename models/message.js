@@ -5,6 +5,7 @@ const MessageSchema = new Schema({
   title: { type: String, required: true },
   text: String,
   author: { type: Schema.Types.ObjectId, ref: "User", required: true },
+  date: { type: Date, required: true, default: Date.now },
 });
 
 const Message = mongoose.model("Message", MessageSchema);

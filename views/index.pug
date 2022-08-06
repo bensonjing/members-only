@@ -1,9 +1,11 @@
 extends layout
 
 block content
-  h1= title
-  a(href='/become-member') Become member #[br]
-  a(href='/login') Login
-  if user 
-    p= user.username
-    p= user.membership
+  if messages 
+    each message in messages 
+      div.message 
+        ul 
+          li= message.title
+          li= message.text 
+          li= message.author.username 
+          li= message.date
