@@ -13,7 +13,7 @@ export function message_list(req, res, next) {
 }
 
 export function create_message_get(req, res) {
-  res.render("message_form", { title: "Create New Message" });
+  res.render("message_form", { title: "Create New Message", user: req.user });
 }
 
 export function create_message_post(req, res, next) {

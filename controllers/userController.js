@@ -51,7 +51,7 @@ export const user_create_post = [
 ];
 
 export function user_member_get(req, res) {
-  res.render("member_form", { title: "Become Member!" });
+  res.render("member_form", { title: "Become Member!", user: req.user });
 }
 
 export const user_member_post = [
