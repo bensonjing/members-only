@@ -1,0 +1,9 @@
+extends layout 
+
+block content 
+  h1= title 
+
+  form(method='POST' action='') 
+    input#title(type='text' name='title' placeholder='Enter title' required='true')
+    input#text(type='text' name='text' placeholder='Enter message' required='true')
+    button(type='submit') Submit
